@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-const Form = styled.form`
+export const Form = styled.form`
     max-width: 500px;
     margin: 0 auto;
 `;
-
-export default Form;
