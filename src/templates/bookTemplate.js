@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/layout';
 import BookItem from '../components/BookItem';
 import { graphql } from 'gatsby';
+import { BookComments } from '../components/common';
+import { FirebaseContext } from '../components/firebase';
 
 const BookTempate = (props) => {
-  console.log(props);
+  console.log(props)
+  const { firebase } = useContext(FirebaseContext);
   return (
     <section>
       <BookItem
@@ -12,6 +15,9 @@ const BookTempate = (props) => {
         authorName={props.data.book.author.name}
         bookSummary={props.data.book.summary}
         bookTitle={props.data.book.title} />
+      {!!firebase &&
+        <BookComments firebase={firebase} bookId={props.pageContext.bookId} />
+      }
     </section>
   );
 }

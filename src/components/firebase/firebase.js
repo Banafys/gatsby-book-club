@@ -23,6 +23,13 @@ class Firebase {
     })
   }
 
+  subscribeToBookComments({ bookId, onSnapshot }) {
+    const bookRef = this.db.collection('books').doc(bookId);
+    return this.db.collection('comments').where('book', '==', bookRef).onSnapshot((s) => {
+      onSnapshot(s);
+    })
+  }
+
   async login({ email, password }) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
