@@ -17,6 +17,12 @@ function useAuth() {
 
             unsubscribe = firebaseInstance.auth.onAuthStateChanged(userResult => {
                 if (userResult) {
+                    firebaseInstance.getUserProfile({ userId: userResult.uid }).then(r => {
+                        setUser({
+                            ...userResult,
+                            username: r.empty ? null : r.docs[0].id
+                        });
+                    });
                     setUser(userResult);
                     // get user custom claims
                     /*setLoading(true);
@@ -56,7 +62,7 @@ function useAuth() {
                             setLoading(false)
                         }
                     })*/
-                }else{
+                } else {
                     setUser(null);
                 }
 
