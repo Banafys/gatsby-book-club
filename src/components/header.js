@@ -50,9 +50,16 @@ const UserInfo = styled.div`
 
 const Header = ({ siteTitle }) => {
   const { firebase, user } = useContext(FirebaseContext);
+
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('login'));
   }
+
+  const Divider = styled.span`
+    margin: 0 8px;
+    padding-right: 1px;
+    background: #ddd;
+  `;
 
   return (
     <HeaderWrapper>
@@ -78,6 +85,8 @@ const Header = ({ siteTitle }) => {
               <Link to="/login">
                 Login
             </Link>
+              <Divider />
+              <Link to="/register">Register</Link>
             </LoginLink>
           }
         </UserInfo>
