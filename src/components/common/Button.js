@@ -8,7 +8,7 @@ export const Button = styled.button`
     cursor: pointer;
     white-space: nowrap;
     ${props => props.block ? 'display:block; width:100%;' : ''}
-    
+
     &:hover{
         background: indigo;
     }

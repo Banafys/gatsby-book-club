@@ -45,3 +45,4 @@ const BookItem = ({ authorName, bookTitle, bookSummary, bookCover, children }) =
 }
 
 export default BookItem;
+

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import { Button } from './Button';
 import { Input } from './Input';
@@ -24,8 +25,12 @@ padding: 4px 0;
 }
 `;
 
+
+
 export const BookComments = ({ firebase, bookId }) => {
     const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState('');
+    console.log(comments);
     useEffect(() => {
         const unsubscribe = firebase.subscribeToBookComments({
             bookId,
@@ -48,15 +53,27 @@ export const BookComments = ({ firebase, bookId }) => {
         }
     }, []);
 
+    function handlePostCommentSubmit(e) {
+        e.preventDefault();
+        firebase.postComment({
+            text: commentText,
+            bookId
+        });
+        setCommentText('');
+    }
+
     return (
         <div>
-            <CommentForm>
-                <Input />
-                <Button>Post Comment</Button>
+            <CommentForm onSubmit={handlePostCommentSubmit}>
+                <Input value={commentText} onChange={(e) => {
+                    e.persist();
+                    setCommentText(e.target.value);
+                }} />
+                <Button type="submit">Post Comment</Button>
             </CommentForm>
             {comments.map(comment => (
                 <CommentListItem key={comment.id}>
-                    <strong>{comment.user}</strong>
+                    <strong>{comment.user} - {moment(comment.dateCreated.toDate()).format('HH:mm Do MMM YYYY')}</strong>
                     <div>{comment.text}</div>
                 </CommentListItem>
             ))

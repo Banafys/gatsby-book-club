@@ -6,7 +6,6 @@ import { BookComments } from '../components/common';
 import { FirebaseContext } from '../components/firebase';
 
 const BookTempate = (props) => {
-  console.log(props)
   const { firebase } = useContext(FirebaseContext);
   return (
     <section>

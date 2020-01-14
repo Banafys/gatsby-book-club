@@ -31,7 +31,6 @@ const Login = () => {
 
     return (
         <section>
-
             <Form onSubmit={handleSubmit}>
                 <Input value={formValues.email} name="email" onChange={handleInputChange} type="email" placeholder="email" require />
                 <Input value={formValues.password} name="password" onChange={handleInputChange} type="password" placeholder="password" require />
