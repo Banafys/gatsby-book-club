@@ -31,12 +31,31 @@ class Firebase {
     const postCommentCallable = this.functions.httpsCallable('postComment');
     return postCommentCallable({ text, bookId });
   }
+
+  async createBook({ bookName, authorId, bookCover, summary }) {
+    const createBookCallable = this.functions.httpsCallable('createBook');
+    return createBookCallable({
+      bookName,
+      authorId,
+      bookCover,
+      summary
+    });
+  }
   subscribeToBookComments({ bookId, onSnapshot }) {
     const bookRef = this.db.collection('books').doc(bookId);
     return this.db.collection('comments')
       .where('book', '==', bookRef)
       .orderBy('dateCreated', 'desc')
       .onSnapshot(onSnapshot)
+  }
+
+  async createAuthor({ authorName }) {
+    const createAuthorCallable = this.functions.httpsCallable('createAuthor');
+    return createAuthorCallable({ authorName });
+  }
+
+  async getAuthors() {
+    return this.db.collection('authors').get();
   }
 
   async login({ email, password }) {
