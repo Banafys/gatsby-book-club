@@ -7,7 +7,10 @@ const FormField = styled.div`
 margin-bottom: 20px;
 `;
 
-const fileReader = new FileReader();
+let fileReader;
+if (typeof window !== 'undefined') {
+    fileReader = new FileReader();
+}
 
 const AddBook = () => {
     const { firebase } = useContext(FirebaseContext);
